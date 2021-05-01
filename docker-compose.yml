@@ -1,11 +1,14 @@
 version: '3'
+
 networks:
   development:
   test:
+
 volumes:
   db_data:
   gem_cache:
   shared_data:
+
 services:
   workostest_redis:
     image: redis:6.2.2
@@ -15,6 +18,7 @@ services:
       - test
     volumes:
       - shared_data:/var/shared/redis
+
   workostest_db:
     image: postgres:13.2
     container_name: workostest_db
@@ -28,7 +32,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
-      - 5099:5432
+      - 5432:5432
+
   workostest_app:
     build:
       context: .
@@ -51,8 +56,9 @@ services:
       RAILS_ENV: development
     depends_on:
       - workostest_db
+
   workostest_test:
-    image: workostest_workostest_app
+    image: workos-test_workostest_app
     container_name: workostest_test
     volumes:
       - .:/var/app
