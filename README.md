@@ -1,24 +1,19 @@
-# README
+# Demo Application for WorkOS
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+"[WorkOS](https://workos.com/) is a set of building blocks for quickly adding enterprise features to your app. Get started fast and ship quickly with a market-proven solution for your customers."
 
-Things you may want to cover:
+Demo Rails app integrated to WorkOS for single sign on, initially with [Okta](https://www.okta.com/).
 
-* Ruby version
+## Required ENV vars
 
-* System dependencies
+WORKOS_SECRET_KEY
 
-* Configuration
+The Secret API key for WorkOS provided at: https://dashboard.workos.com/api-keys
 
-* Database creation
+WORKOS_CLIENT_ID
 
-* Database initialization
+This is the Client ID (previously known as the Project ID) of your current environment. You will need this value to initiate authentication with WorkOS, found at: https://dashboard.workos.com/configuration
 
-* How to run the test suite
+APP_DOMAIN
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The base URL that the application is running on, used to build the callback URLs from WorkOS
