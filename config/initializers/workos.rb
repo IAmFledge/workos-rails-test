@@ -1,0 +1,1 @@
+WorkOS.key = ENV['WORKOS_SECRET_KEY']

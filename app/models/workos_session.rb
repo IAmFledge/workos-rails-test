@@ -1,0 +1,2 @@
+class WorkosSession < ApplicationRecord
+end
