@@ -34,5 +34,9 @@ module WorkosTest
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.workos_api_key = ENV['WORKOS_SECRET_KEY']
+    config.workos_project_id = ENV['WORKOS_PROJECT_ID']
+
   end
 end
