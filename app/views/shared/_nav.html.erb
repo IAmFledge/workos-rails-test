@@ -43,7 +43,9 @@
                 <img src="https://lh3.googleusercontent.com/a-/AOh14Gi0DgItGDTATTFV6lPiVrqtja6RZ_qrY91zg42o-g" class="object-cover w-full h-full" alt="avatar">
               </div>
 
-              <h3 class="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200"><%= current_user.first_name %></h3>
+              <h3 class="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                <%= link_to "Log Out #{current_user.first_name}", destroy_user_session_path, method: :delete %>
+              </h3>
             </button>
           </div>
         <% end %>
