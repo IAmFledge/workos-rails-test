@@ -1,13 +1,6 @@
 class WorkosSessionsController < ApplicationController
   def create
-    redirect_uri = "#{ENV['APP_DOMAIN']}#{workos_sessions_path}"
-    client_id = ENV['WORKOS_CLIENT_ID']
-
-    redirect_to WorkOS::SSO.authorization_url(
-      redirect_uri: redirect_uri,
-      domain: workos_create_params,
-      client_id: client_id
-    )
+    redirect_to ::Sessions::GetAuthUrl.new(workos_create_params).call
   end
 
   def index
@@ -16,6 +9,9 @@ class WorkosSessionsController < ApplicationController
       code: workos_params,
       client_id: client_id
     )
+  rescue ActionController::ParameterMissing
+    flash.alert = workos_error_params
+    redirect_to root_url
   end
 
   private
@@ -26,5 +22,9 @@ class WorkosSessionsController < ApplicationController
 
   def workos_params
     params.require(:code)
+  end
+
+  def workos_error_params
+    params.require(:error_description)
   end
 end
