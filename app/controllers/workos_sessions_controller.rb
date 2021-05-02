@@ -1,14 +1,18 @@
 class WorkosSessionsController < ApplicationController
+  skip_before_action :authenticate_user!, :only => [:create, :index]
+
   def create
-    redirect_to ::Sessions::GetAuthUrl.new(workos_create_params).call
+    redirect_to ::Sessions::GetAuthUrl.new(domain: domain_param).call
   end
 
   def index
-    client_id = ENV['WORKOS_CLIENT_ID']
-    @profile = WorkOS::SSO.profile(
-      code: workos_params,
-      client_id: client_id
-    )
+    profile = Sessions::GetProfileFromCode.new(code: code_param).call
+    user = Sessions::GetUserFromProfile.new(profile: profile).call
+
+    sign_in(:user, user)
+    Sessions::SynchroniseProfile.new(profile: profile, user: user).call
+
+    redirect_to root_url
   rescue ActionController::ParameterMissing
     flash.alert = workos_error_params
     redirect_to root_url
@@ -16,11 +20,11 @@ class WorkosSessionsController < ApplicationController
 
   private
 
-  def workos_create_params
+  def domain_param
     params.require(:domain)
   end
 
-  def workos_params
+  def code_param
     params.require(:code)
   end
 

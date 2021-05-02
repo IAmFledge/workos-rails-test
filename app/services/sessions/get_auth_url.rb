@@ -2,10 +2,10 @@ module Sessions
   class GetAuthUrl
     include Rails.application.routes.url_helpers
 
-    def initialize(domain)
+    def initialize(params)
       @redirect_uri = "#{ENV['APP_DOMAIN']}#{workos_sessions_path}"
       @client_id = ENV['WORKOS_CLIENT_ID']
-      @domain = domain
+      @domain = params[:domain]
     end
 
     def call

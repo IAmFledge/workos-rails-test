@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'workos', '~> 0.11'
 gem 'awesome_print'
+gem 'devise'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
