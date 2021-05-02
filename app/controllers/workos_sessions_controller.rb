@@ -1,11 +1,11 @@
 class WorkosSessionsController < ApplicationController
-  def new
+  def create
     redirect_uri = "#{ENV['APP_DOMAIN']}#{workos_sessions_path}"
     client_id = ENV['WORKOS_CLIENT_ID']
 
     redirect_to WorkOS::SSO.authorization_url(
       redirect_uri: redirect_uri,
-      domain: workos_new_params,
+      domain: workos_create_params,
       client_id: client_id
     )
   end
@@ -20,7 +20,7 @@ class WorkosSessionsController < ApplicationController
 
   private
 
-  def workos_new_params
+  def workos_create_params
     params.require(:domain)
   end
 
